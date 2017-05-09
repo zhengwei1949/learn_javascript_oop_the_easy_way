@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function sayHi(name,age){
+        console.log('myName is ' + name + 'my age is ' + age);
+      }
+
+      //对象字面量的方式缺点
+      // 代码重复过于严重
+      var cat1 = {
+        name:'hello kitty',
+        age:1
+      };
+
+      var cat2 = {
+        name:'jia fei mao',
+        age:2
+      };
+
+      sayHi(cat1.name,cat1.age);
+      sayHi(cat2.name,cat2.age);
+    </script>
+  </body>
+</html>

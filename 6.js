@@ -1,22 +1,13 @@
 function Cat(name,age){
     this.name = name;
     this.age = age;
+    this.say = function(){
+        console.log('miao miao');
+    }
 }
 
-Cat.prototype.say = function(){
-    console.log('miao');
-};
+var cat1 = new Cat('猫1',5);
+var cat2 = new Cat('猫2',20);
 
-
-function HelloKitty(name,age){
-    this.name = name;
-    this.age = age;
-    this.style = 'very cute';
-}
-
-HelloKitty.prototype = new Cat();
-
-var littleCat = new HelloKitty('小kitty',10);
-console.log(littleCat);
-littleCat.say();
-//这种继承方式的缺点：浪费了Cat上的this.name,this.age
+//缺点：
+//重复声明两次say方法浪费内存
