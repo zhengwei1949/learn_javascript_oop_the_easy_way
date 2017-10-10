@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //想办法实现给所有的数组添加一个方法sum
+    // var arr = [2,3,4];
+    // console.log(arr.sum())//-->9    
+    //分析：给所有的数组都添加这个方法，肯定得加在原型身上
+    Array.prototype.sum = function(){
+        var sum = 0;
+        for(var i=0;i<this.length;i++){
+            sum+=this[i]
+        }
+        return sum;
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //   n1 = 1
+    //   n2 = 1
+    //   n3 = 2 = n1 + n2 
+    //   n4 = 3 = n3 + n2 
+      
+    //   ... 
+
+
+    //   nm = n(m-1)+n(m-2)
+    function fn(n){
+        if(n===1||n===2){
+            return 1;
+        }else{
+            return fn(n-1)+fn(n-2);
+        }
+    }
+    //上面这样写的缺点：万一fn的名字变了，你需要改三个地方，所以，可以考虑用arguments.callee
+
+    function fn(n){
+        if(n===1||n===2){
+            return 1;
+        }else{
+            return arguments(n-1)+arguments(n-2);
+        }
+    }
+    </script>
+</body>
+</html>

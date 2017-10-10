@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .active{
+        background:rgb(28, 73, 218);
+    }
+    .content div{
+        width:400px;
+        height: 300px;
+        background:rgb(165, 174, 165);
+        display: none;
+    }
+    </style>
+</head>
+<body>
+    <div class="tab">
+        <div class="menu">
+            <input type="button" value="1" class="active">
+            <input type="button" value="2">
+            <input type="button" value="3">
+        </div>
+        <div class="content">
+            <div style="display:block;">0001</div>
+            <div>0002</div>
+            <div>0003</div>
+            <div>0004</div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="tab1">
+        <div class="menu">
+            <input type="button" value="1" class="active">
+            <input type="button" value="2">
+            <input type="button" value="3">
+        </div>
+        <div class="content">
+            <div style="display:block;">0001</div>
+            <div>0002</div>
+            <div>0003</div>
+            <div>0004</div>
+        </div>
+    </div>
+    <script src="./tab.js"></script>
+    <script>
+    window.onload = function(){
+        //使用面向对象的写法，自己只需要写二行代码即可
+        var myTab = new Tab('.tab');
+        myTab.init();
+
+
+        var myTab1 = new Tab('.tab1');
+        myTab1.init();
+    }
+    </script>
+</body>
+</html>
