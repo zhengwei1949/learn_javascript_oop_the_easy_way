@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //要记住的规则：对象.方法中的this指向的是这个对象，如果函数没有显式的声明this的指向，那么指向的就是window
+        function fn(){
+            console.log(this);
+        }
+
+        fn();//this没有显式的声明this的指向，所以指向的是window
+////////////////////////////////////////
+        var obj = {
+            fn1:function(){
+                console.log(this);
+            }
+        }
+
+        obj.fn1();//this显式的声明了是obj,所以指向的是obj
+////////////////////////////////////
+        var obj = {
+            fn1:function(){
+                function fn2(){
+                    console.log(this);
+                }
+                fn2();//this没有显式的声明，所以指向是window
+            }
+        }
+
+        obj.fn1();
+
+////////////////////////////////////////
+
+        var obj = {
+            fn1:function(){
+                setTimeout(function(){console.log(this)},1000);//这个匿名函数没有显式的指定this,所以指向的是window
+            }
+        }
+
+        obj.fn1();
+/////////////////////////////////
+        //为了让this还指向obj,我们之前是这样玩的：
+        var obj = {
+            fn1:function(){
+                var _this = this;
+                function fn2(){
+                    console.log(_this);
+                }
+                fn2();//这里面，咱们打印的是_this,根据作用域查找规则，当前找不到则会去父级找，所以指向的是父级的_this,进而知道值是obj
+            }
+        }
+
+        //上面这种写法多了一行代码，如果我们不想写得这么麻烦，我们也可以用call,apply,bind,这里我们只分析最简单的bind的用法,call和apply也类似，大家可以自行把代码写出来
+
+        var obj = {
+            fn1:function(){
+                function fn2(){
+                    console.log(this);
+                }
+                
+                fn2.bind(this)();//this显式的通过bind绑定了obj,所以打印出来的this是obj
+            }
+        }
+
+        obj.fn1();
+
+
+        //最后，es6中通过箭头函数完美的解决了这个问题
+        var obj = {
+            fn1:function(){
+                let fn2 = ()=>{
+                    console.log(this);
+                }
+                
+                fn2();//这里虽然没有显式声明fn2是哪个对象在用，按理说根据我们的规则，指向的是window,但箭头函数是不遵守这个规则的，指向的还是外面的this
+            }
+        }
+
+        obj.fn1();
+
+
+    </script>
+</body>
+</html>

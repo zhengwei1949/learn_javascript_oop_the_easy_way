@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //很多人欠缺的能力： --> 面向百度编程 面向翻译软件编程
+        //规则：只要记住一句话：确定一个变量的值是多少，主要看这个函数在哪里定义的，位置决定一切
+        function f1() {
+            var n = 999;
+            function f2() {
+                alert(n); // 分析：在这里alert(n),当前这个函数自身没有n这个变量，就去外面找，所以n的值是999
+            }
+            f2();
+        }
+
+        f1();
+        // ============================
+
+
+        function f1() {
+            var n = 999;
+            function f2() {
+                alert(n);//n在这里调用，当前这个f2没有一个叫n的变量，就去外面找，结果就是999
+            }
+            return f2;
+        }
+        var result = f1();
+        result(); // 999
+
+
+
+        // ===========
+        var n = 999;
+        function f1() {
+            function f2() {
+                alert(n);//n在这里调用，当前这个f2没有一个叫n的变量，就去外面找，外面还是没有，只能去全局作用域里面找，结果就是999
+            }
+            return f2;
+        }
+        var result = f1();
+        result(); // 999
+
+        //============
+
+       var name = "The Window";
+       var n = 200;
+    　　var object = {
+    　　　　name: "My Object",
+    　　　　getNameFunc: function () {
+              var n = 100;  
+    　　　　　　return function () {
+                    n++;
+        　　　　　　　console.log(n);//n在当前函数没有定义，所以去外面去找，n=100 --> 最后打印出来的是101
+    　　　　　　};
+    　　　　}
+    　　};
+        object.getNameFunc()();//
+
+        
+    </script>
+</body>
+
+</html>

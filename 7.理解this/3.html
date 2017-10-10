@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+       var name = "The Window";
+       var n = 200;
+    　　var object = {
+    　　　　name: "My Object",
+    　　　　getNameFunc: function () {
+              var n = 100;  
+    　　　　　　return function () {
+                    console.log(this.name);//this的规则：如果没有显式的指定this是谁，指向的是window,所以最后打印出来的是The Window
+                    n++;
+        　　　　　　　console.log(n);//根据规则：确定一个变量的值是多少，主要看这个函数在哪里定义的，位置决定一切 --> n在当前函数没有定义，所以去外面去找，n=100 --> 最后打印出来的是101
+    　　　　　　};
+    　　　　}
+    　　};
+        object.getNameFunc()();
+    </script>
+</body>
+
+</html>
