@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      .demo{
+          width:200px;
+          height:200px;
+          background:rgb(206, 53, 81);
+          position:fixed;
+          left:0;
+          top:0;
+      }
+    </style>
+</head>
+<body>
+    <div class="demo" id="demo1"></div>
+    <div class="demo" id="demo2"></div>
+    <script>
+    window.onload = function(){
+        function Drag(ele){
+            this.oDiv = document.querySelector(ele);
+            this.isMove = false;
+            this.pos = {x:0,y:0};//记录坐标
+        }
+        Drag.prototype.init = function(){
+            var that = this;
+            this.oDiv.onmousedown = function(e){
+                that.isMove = true;
+                that.pos.x = e.clientX;
+                that.pos.y = e.clientY;
+                document.onmousemove = function(e){
+                    e.stopPropagation()
+                    if(!that.isMove)return;
+                    var left = e.clientX - that.pos.x;
+                    var top = e.clientY - that.pos.y;
+                    that.pos.x = e.clientX;
+                    that.pos.y = e.clientY;
+                    that.oDiv.style.left = that.oDiv.offsetLeft + left + "px";
+                    that.oDiv.style.top = that.oDiv.offsetTop + top + "px";
+                }
+                document.onmouseup = function(){
+                    document.onmousemove = null;
+                    that.isMove = false;
+                }
+        }
+        }
+
+        var myDrag1 = new Drag('#demo1');
+        myDrag1.init();
+
+        var myDrag2 = new Drag('#demo2');
+        myDrag2.init();
+    }
+    </script>
+</body>
+</html>
