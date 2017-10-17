@@ -6,20 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-      .demo{
-          width: 200px;
-          height: 200px;
-          background:pink;
+      #demo{
+          width:200px;
+          height:200px;
+          background:rgb(206, 53, 81);
+          position:fixed;
+          left:0;
+          top:0;
       }
     </style>
 </head>
 <body>
-    <div class="demo"></div>
+    <div id="demo"></div>
     <script>
     window.onload = function(){
-        var oDiv = document.querySelector('.demo')
-        oDiv.onmousedown = function(){
-            
+        var oDiv = document.querySelector('#demo');
+        var isMove = false;
+        var pos = {x:0,y:0};//记录坐标
+        oDiv.onmousedown = function(e){
+            isMove = true;
+            pos.x = e.clientX;
+            pos.y = e.clientY;
+            document.onmousemove = function(e){
+                e.stopPropagation()
+                if(!isMove)return;
+                var left = e.clientX - pos.x;
+                var top = e.clientY - pos.y;
+                pos.x = e.clientX;
+                pos.y = e.clientY;
+                oDiv.style.left = oDiv.offsetLeft + left + "px";
+                oDiv.style.top = oDiv.offsetTop + top + "px";
+            }
+            document.onmouseup = function(){
+                document.onmousemove = null;
+                isMove = false;
+            }
         }
     }
     </script>
