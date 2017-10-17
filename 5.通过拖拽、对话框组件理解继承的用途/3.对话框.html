@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      *{
+          margin:0;
+          padding:0;
+      }  
+      .demo{
+          width:600px;
+          height:400px;
+          background:rgb(206, 53, 81);
+          position:fixed;
+          left:0;
+          top:0;
+      }
+      .title{
+        height:50px;
+        background:blue;
+      }
+      .content{
+
+      }
+      .close{
+          position: absolute;
+          right:0;
+          top:0;
+          font-size:30px;
+          height:50px;
+          width:50px;
+          line-height: 50px;
+          text-align: center;
+          color:#fff;
+          cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+    <div class="demo" id="demo1">
+        <h3 class="title"></h3>
+        <div class="content"></div>
+        <div class="close">x</div>
+    </div>
+    <script>
+    window.onload = function(){
+        function Drag(ele){
+            if(ele)this.oDiv = document.querySelector(ele);
+            this.isMove = false;
+            this.pos = {x:0,y:0};//记录坐标
+        }
+        Drag.prototype.init = function(){
+            var that = this;
+            this.oDiv.onmousedown = function(e){
+                that.isMove = true;
+                that.pos.x = e.clientX;
+                that.pos.y = e.clientY;
+                document.onmousemove = function(e){
+                    e.stopPropagation()
+                    if(!that.isMove)return;
+                    var left = e.clientX - that.pos.x;
+                    var top = e.clientY - that.pos.y;
+                    that.pos.x = e.clientX;
+                    that.pos.y = e.clientY;
+                    that.oDiv.style.left = that.oDiv.offsetLeft + left + "px";
+                    that.oDiv.style.top = that.oDiv.offsetTop + top + "px";
+                }
+                document.onmouseup = function(){
+                    document.onmousemove = null;
+                    that.isMove = false;
+                }
+        }
+        }
+
+        function Dialog(obj){
+            var defaultObj = {
+                title:'默认标题',
+                content:'默认内容'
+            }
+            obj = obj || {};
+            function mixin(obj,defaultObj){
+                for(var i in defaultObj){
+                    obj[i] = obj[i] || defaultObj[i];
+                }
+            }
+            mixin(obj,defaultObj);
+            console.log(obj)
+            this.title = obj.title;
+            this.content = obj.content;
+            this.oDiv = document.querySelector(obj.ele);
+            console.log(this.oDiv)
+        }
+
+        Dialog.prototype = new Drag();
+        Dialog.prototype.render = function(){
+            this.oDiv.querySelector('h3').innerHTML = this.title;
+            this.oDiv.querySelector('.content').innerHTML = this.content;
+        }
+        Dialog.prototype.initClose = function(){
+            var that = this;
+            this.oDiv.querySelector('.close').onclick = function(){
+                that.oDiv.parentNode.removeChild(that.oDiv);
+                delete that;
+            }
+        }
+        Dialog.prototype.myinit = function(){
+            this.init();
+            this.render();
+            this.initClose();
+        }
+
+        var myDialog = new Dialog({ele:'#demo1'});
+        myDialog.myinit();
+    }
+    </script>
+</body>
+</html>
