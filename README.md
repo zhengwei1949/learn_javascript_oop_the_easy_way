@@ -12,3 +12,7 @@ http://blog.csdn.net/u010800530/article/details/38174819
 
 ## 不错的资源
 - https://github.com/mqyqingfeng/Blog
+
+![](http://www.runoob.com/wp-content/uploads/2016/05/animals.png)
+
+![](http://www.runoob.com/wp-content/uploads/2016/05/1462335800-8110-classes-and-objects.jpg)
